@@ -1,0 +1,44 @@
+body {
+    margin:0;
+    padding:0;
+    font-size:0.8em;
+    background-color:lightgrey;
+    color:#000000;
+}
+
+form {
+    margin:20px;
+}
+
+img {
+	width:50px;
+	height:50px;
+	padding:10px;
+}
+input[type="text"], textarea, select {
+    width:300px;
+    padding:10px;
+    font-size:1em;
+}
+
+input[type="submit"],input[type="reset"] {
+    padding:3px;
+    font-size:1em;
+	width:5%;
+}
+
+label {
+    display:inline-block;
+    width:150px;
+	vertical-align: top;
+}
+
+table {
+    border-collapse: collapse;
+    margin:10px;
+}
+
+table, th, td {
+    border: black solid 1px;
+    padding:3px;
+}
