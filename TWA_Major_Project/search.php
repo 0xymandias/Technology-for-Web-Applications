@@ -68,7 +68,7 @@
                     while ($row = $recordSet->fetch_assoc()) { ?>
                         <tr>
                             <td>
-                                <?php echo $row["clinicID"] ?>
+                            <a href="clinicdetails.php"><?php echo $row["clinicID"] ?></a>
                             </td>
                             <td>
                                 <?php echo $row["clinicName"] ?>
