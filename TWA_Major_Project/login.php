@@ -2,7 +2,7 @@
 
 <?php
 require_once("dbConn.php");
-
+session_start();
 //create error flags
 $IdMessage = "";
 $userNameMessage = "";
@@ -61,6 +61,7 @@ if (isset($_POST["submit"])) {
     if (empty($IdMessage) && empty($userNameMessage) && empty($pWordMessage)) {
         $sql = "SELECT * FROM `patient` WHERE `patientID` = '$patientID' AND `username` = '$username' AND `password` = '$pWordHash'";
         $dbConn->query($sql);
+        $_SESSION["username"] = $username;
         header('location:search.php');
     }
 
@@ -74,7 +75,7 @@ if (isset($_POST["submit"])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Medbook | Register</title>
+    <title>Medbook | Login</title>
 
     <link rel="stylesheet" href="styles.css">
 </head>

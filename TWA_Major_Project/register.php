@@ -1,6 +1,7 @@
 <!-- 18114733 Zachari Belivanis-->
 
 <?php
+session_start();
 require_once("dbConn.php");
 
 //create error flags
@@ -24,7 +25,7 @@ if (isset($_POST["submit"])) {
         $sql = "SELECT * FROM patient where patientID = '$patientID'";
         $recordSet = $dbConn->query($sql);
         if ($recordSet->num_rows) {
-            $IdMessage = 'Error! The PatientID provided already exists. Please use a different PatientID.';
+            $IdMessage = '<span class="error_msg">Error! The PatientID provided already exists. Please use a different PatientID.</span>';
         } else {
             $IdMessage = '';
         }
@@ -33,7 +34,7 @@ if (isset($_POST["submit"])) {
     //Check username validity
 
     if (empty($username)) {
-        $userNameMessage = 'Error! A username is required. Please enter a username.';
+        $userNameMessage = '<span class="error_msg">Error! A username is required. Please enter a username.</span>';
     } else {
         $sql = "SELECT * FROM patient where username = '$username'";
         $recordSet = $dbConn->query($sql);
