@@ -86,17 +86,17 @@ if (isset($_POST["submit"])) {
     <h2>Patient Login</h2>
     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
         <p>
-            <label for="patient_id">Enter a Patient ID</h3>
+            <label for="patient_id">Enter a Patient ID</label>
                 <input type="number" name="patientID" id="patientID">
                 <?php echo $IdMessage; ?>
         </p>
         <p>
-            <label for="username">Enter a Username</h3>
+            <label for="username">Enter a Username</label>
                 <input type="text" name="username" id="username">
                 <?php echo $userNameMessage; ?>
         </p>
         <p>
-            <label for="password">Enter a Password</h3>
+            <label for="password">Enter a Password</label>
                 <input type="password" name="password" id="password">
                 <?php echo $pWordMessage; ?>
         </p>
