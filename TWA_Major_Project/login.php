@@ -7,7 +7,6 @@ session_start();
 $IdMessage = "";
 $userNameMessage = "";
 $pWordMessage = "";
-
 $sql = '';
 
 if (isset($_POST["submit"])) {

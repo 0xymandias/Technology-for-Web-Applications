@@ -2,7 +2,7 @@
 
 <?php
 session_start();
-require_once("dbConn.php");
+include("dbConn.php");
 
 //create error flags
 $IdMessage = "";

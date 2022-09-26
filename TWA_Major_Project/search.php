@@ -1,4 +1,58 @@
 <!-- 18114733 Zachari Belivanis-->
+
+
+<?php
+    $errorMsg = '';
+    session_start();
+
+    include('dbConn.php');
+    if (isset($_POST["submit"])) {
+
+        $suburb = $dbConn->escape_string($_POST["suburb"]);
+
+        if (empty($suburb)) {
+            $errorMsg = '<span class="error_msg">Error! A suburb is required. Please enter a subrub.</span>';
+        } else {
+            $suburb = $dbConn->escape_string($_POST["suburb"]);
+            $sql = "select * from clinic where clinicSuburb = '$suburb'";
+            $recordSet = $dbConn->query($sql);
+            if ($recordSet->num_rows) {
+    ?>
+                <table>
+                    <tr>
+                        <th>Clinic ID</th>
+                        <th>Clinic Name</th>
+                        <th>Clinic Suburb</th>
+                        <th>Clinic Address</th>
+                    </tr>
+                    <?php
+                    while ($row = $recordSet->fetch_assoc()) { ?>
+                        <tr>
+                            <td>
+                                <a href="clinicdetails.php?clinicID=<?php echo $row["clinicID"] ?>"><?php echo $row["clinicID"] ?></a>
+                            </td>
+                            <td>
+                                <?php echo $row["clinicName"] ?>
+                            </td>
+                            <td>
+                                <?php echo $row["clinicSuburb"] ?>
+                            </td>
+                            <td>
+                                <?php echo $row["clinicAddress"] ?>
+                            </td>
+                        </tr>
+        <?php
+                    }
+                } else {
+                    $errorMsg = "Unable to locate clinics in the request suburb. Please try a different suburb.";
+                }
+            }
+        }
+
+
+        ?>
+
+
 <!DOCTYPE html>
 <HTML lang="eng">
 
@@ -8,10 +62,7 @@
 </head>
 
 <body>
-    <?php
-    $errorMsg = '';
-    session_start();
-    ?>
+
     <nav>
         <ul>
             <?php
@@ -31,7 +82,7 @@
     </nav>
     <h1> Clinic Search </h1>
 
-    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
         <p>
             <label for="suburb">Enter a Suburb</h3>
@@ -43,53 +94,6 @@
         </p>
     </form>
 
-    <?php
-    include('dbConn.php');
-    if (isset($_POST["submit"])) {
-
-        $suburb = $dbConn->escape_string($_POST["suburb"]);
-
-        if (empty($suburb)) {
-            $errorMsg = '<span class="error_msg">Error! Suburb field is mandatory. Please enter a suburb to search.</span>';
-        } else {
-            $sql = "select * from clinic where clinicSuburb = '$suburb'";
-            $recordSet = $dbConn->query($sql);
-            if ($recordSet->num_rows) {
-    ?>
-                <h2>Search Results</h2>
-                <table>
-                    <tr>
-                        <th>Clinic ID</th>
-                        <th>Clinic Name</th>
-                        <th>Clinic Suburb</th>
-                        <th>Clinic Address</th>
-                    </tr>
-                    <?php
-                    while ($row = $recordSet->fetch_assoc()) { ?>
-                        <tr>
-                            <td>
-                            <a href="clinicdetails.php"><?php echo $row["clinicID"] ?></a>
-                            </td>
-                            <td>
-                                <?php echo $row["clinicName"] ?>
-                            </td>
-                            <td>
-                                <?php echo $row["clinicSuburb"] ?>
-                            </td>
-                            <td>
-                                <?php echo $row["clinicAddress"] ?>
-                            </td>
-                        </tr>
-        <?php
-                    }
-                } else {
-                    echo "Unable to locate clinics in the request suburb. Please try a different suburb";
-                }
-            }
-        }
-
-
-        ?>
 </body>
 
 </html>
