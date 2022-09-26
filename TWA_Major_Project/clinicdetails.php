@@ -47,7 +47,7 @@ if (isset($_SESSION["username"])) {
             $bookingListSQL = "INSERT INTO `bookinglist` (`patientID`, `clinicID`, `listDate`, `listTime`, `serviceType`) VALUES ('$patientID', '$clinicID', '$bookingDate', '$bookingTime', '$bookingService');";
             $recordSet = $dbConn->query($bookingSQL);
             $recordSet = $dbConn->query($bookingListSQL);
-            $redirectNotification = '<span class="error_msg">Congratulations! Booking has been placed. Redicting in 5 seconds.</span>';
+            $redirectNotification = '<span class="error_msg">Congratulations! Booking has been placed. Redicting in 3 seconds.</span>';
             header('Refresh: 5; bookinglist.php');
         }
     }
@@ -68,7 +68,8 @@ if (isset($_SESSION["username"])) {
             $row = $recordSet->fetch_assoc();
             $patientID = $row['patientID'];
         } else {
-            $userNameMessage = '<span class="error_msg">Error! No matching Username found. Please enter a valid Username.</span>';
+            $userNameMessage = '<span class="error_msg">No matching username found. Redirecting to registration page.</span>';
+            header('Refresh: 5; register.php');
         }
     }
     $bookingService = $_POST['services'];
@@ -100,8 +101,8 @@ if (isset($_SESSION["username"])) {
         $bookingListSQL = "INSERT INTO `bookinglist` (`patientID`, `clinicID`, `listDate`, `listTime`, `serviceType`) VALUES ('$patientID', '$clinicID', '$bookingDate', '$bookingTime', '$bookingService');";
         $recordSet = $dbConn->query($bookingSQL);
         $recordSet = $dbConn->query($bookingListSQL);
-        $redirectNotification = '<span class="error_msg">Congratulations! Booking has been placed. Redicting in 5 seconds.</span>';
-        header('Refresh: 5; bookinglist.php');
+        $redirectNotification = '<span class="error_msg">Congratulations! Booking has been placed. Redirecting in 5 seconds.</span>';
+        header('Refresh: 5; search.php');
     }
 }
 ?>
@@ -117,17 +118,19 @@ if (isset($_SESSION["username"])) {
 <body>
 
     <nav>
-        <ul>
+    <ul>
             <?php
             if (!isset($_SESSION["username"])) { ?>
                 <li><a href="register.php">Register</a></li>
+                <li><a href="login.php">Log In</a></li>
+                <li><a href="search.php">Clinic Search</a></li>
+
             <?php
             } else {
-                $loginName = $_SESSION["username"];
-                echo "Welcome, $loginName";
             ?>
-
-                <li><a href="logout.php">Logout</a></li>
+                <li><a href="search.php">Clinic Search</a></li>
+                <li><a href="bookinglist.php">Booking List</a></li>
+                <li style="float:right"><a href="logout.php">Logout</a></li>
             <?php
             }
             ?>
@@ -184,11 +187,11 @@ if (isset($_SESSION["username"])) {
                 <p>
                     <label for="services[]">Services</label>
                     <select multiple id="bookService" name="services[]">
-                        <option value="nutrition">Nutrtion Support</option>
-                        <option value="dental">Dental Care</option>
-                        <option value="pharma">Pharmaceutical</option>
-                        <option value="physical">Physical Therapy</option>
-                        <option value="diagnosis">Diagnosis Care</option>
+                        <option value="Nutrtion Support">Nutrtion Support</option>
+                        <option value="Dental Care">Dental Care</option>
+                        <option value="Pharmaceutical">Pharmaceutical</option>
+                        <option value="Physical Therapy">Physical Therapy</option>
+                        <option value="Diagnosis Care">Diagnosis Care</option>
                     </select><br>
                     <?php echo $serviceMessage; ?>
                 </p>
@@ -223,11 +226,11 @@ if (isset($_SESSION["username"])) {
                 <p>
                     <label for="services[]">Services</label>
                     <select multiple id="bookService" name="services[]">
-                        <option value="nutrition">Nutrtion Support</option>
-                        <option value="dental">Dental Care</option>
-                        <option value="pharma">Pharmaceutical</option>
-                        <option value="physical">Physical Therapy</option>
-                        <option value="diagnosis">Diagnosis Care</option>
+                        <option value="Nutrtion Support">Nutrtion Support</option>
+                        <option value="Dental Care">Dental Care</option>
+                        <option value="Pharmaceutical">Pharmaceutical</option>
+                        <option value="Physical Therapy">Physical Therapy</option>
+                        <option value="Diagnosis Care">Diagnosis Care</option>
                     </select><br>
                     <?php echo $serviceMessage; ?>
                 </p>
@@ -247,6 +250,7 @@ if (isset($_SESSION["username"])) {
             </form>
         <?php
         }
+
         ?>
 
 

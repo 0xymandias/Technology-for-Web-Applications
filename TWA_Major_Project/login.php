@@ -3,6 +3,7 @@
 <?php
 require_once("dbConn.php");
 session_start();
+session_regenerate_id(true);
 //create error flags
 $IdMessage = "";
 $userNameMessage = "";
@@ -81,24 +82,40 @@ if (isset($_POST["submit"])) {
 
 <body>
     <nav>
+    <ul>
+            <?php
+            if (!isset($_SESSION["username"])) { ?>
+                <li><a href="register.php">Register</a></li>
+                <li><a class="active" href="login.php">Log In</a></li>
+                <li><a href="search.php">Clinic Search</a></li>
 
+            <?php
+            } else {
+            ?>
+                <li><a href="search.php">Clinic Search</a></li>
+                <li><a href="bookinglist.php">Booking List</a></li>
+                <li style="float:right"><a href="logout.php">Logout</a></li>
+            <?php
+            }
+            ?>
+        </ul>
     </nav>
     <h2>Patient Login</h2>
     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
         <p>
             <label for="patient_id">Enter a Patient ID</label>
-                <input type="number" name="patientID" id="patientID">
-                <?php echo $IdMessage; ?>
+            <input type="number" name="patientID" id="patientID">
+            <?php echo $IdMessage; ?>
         </p>
         <p>
             <label for="username">Enter a Username</label>
-                <input type="text" name="username" id="username">
-                <?php echo $userNameMessage; ?>
+            <input type="text" name="username" id="username">
+            <?php echo $userNameMessage; ?>
         </p>
         <p>
             <label for="password">Enter a Password</label>
-                <input type="password" name="password" id="password">
-                <?php echo $pWordMessage; ?>
+            <input type="password" name="password" id="password">
+            <?php echo $pWordMessage; ?>
         </p>
         <p>
             <input type="submit" name="submit">

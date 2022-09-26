@@ -82,7 +82,23 @@ if (isset($_POST["submit"])) {
 
 <body>
     <nav>
+    <ul>
+            <?php
+            if (!isset($_SESSION["username"])) { ?>
+                <li><a class="active"  href="register.php">Register</a></li>
+                <li><a href="login.php">Log In</a></li>
+                <li><a href="search.php">Clinic Search</a></li>
 
+            <?php
+            } else {
+            ?>
+                <li><a href="search.php">Clinic Search</a></li>
+                <li><a href="bookinglist.php">Booking List</a></li>
+                <li style="float:right"><a href="logout.php">Logout</a></li>
+            <?php
+            }
+            ?>
+        </ul>
     </nav>
     <h2>Patient Registration</h2>
     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
