@@ -56,6 +56,18 @@ if (isset($_POST["submit"])) {
 
     $pWordHash = hash('sha256', $password);
 
+    //compare our password hash against our stored hash
+
+    if(empty($pWordMessage)){
+        $sql = "SELECT password FROM patient WHERE password = '$pWordHash';";
+        $recordSet = $dbConn->query($sql);
+        if($recordSet->num_rows){
+            $pWordMessage = '';
+        } else {
+            $pWordMessage = '<span class="error_msg">Error! Incorrect password.</span>';
+        }
+    }
+
     //check our error flags to see if they are empty, if they are we can proceed with registration
 
     if (empty($IdMessage) && empty($userNameMessage) && empty($pWordMessage)) {
